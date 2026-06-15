@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include <FlexCAN_T4.h>
 
+#include "../telemetry/serial_log.h"
 
 #pragma once
 

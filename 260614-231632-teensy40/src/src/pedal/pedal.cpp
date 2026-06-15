@@ -24,8 +24,10 @@ float get_pedal_value() {
   // This is a bandaid fix to a bigger problem, see issue #5
   pedal_value = constrain(pedal_value, 0, 1) * 0.5;
 
-  PedalPacket packet = PedalPacket(base_raw, pedal_raw);
-  packet.send_bytes();
+
+  //Telemetry
+  // PedalPacket packet = PedalPacket(base_raw, pedal_raw);
+  // packet.send_bytes();
 
   if ((base_raw < (pedal_raw - 50)) || (pedal_raw < ACC_PEDAL_FAULT)) {
     return -1;

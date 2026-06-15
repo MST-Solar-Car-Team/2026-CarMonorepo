@@ -4,7 +4,7 @@
 
 #include "../pedal/pedal.h"
 
-void handle_can_message(CAN_FRAME *frame) {
+void handle_can_message(CAN_message_t *frame) {
   switch (frame->id) {
     case MOTOR_VELOCITY_FRAME_ID: {
       CanPacket packet = CanPacket(VELOCITY_PACKET_ID, frame->data.high, frame->data.low);
@@ -28,9 +28,9 @@ void handle_can_message(CAN_FRAME *frame) {
       break;
   }
 }
-// returns a CAN_FRAME for activating the motor in relation to the current pedal value
-CAN_FRAME get_drive_frame(carState &car) {
-  CAN_FRAME drive_frame;
+// returns a CAN_message_t for activating the motor in relation to the current pedal value
+CAN_message_t get_drive_frame(carState &car) {
+  CAN_message_t drive_frame;
 
   float speed = get_pedal_value();
 
@@ -52,8 +52,8 @@ CAN_FRAME get_drive_frame(carState &car) {
 };
 
 // returns the power frame
-CAN_FRAME get_power_frame() {
-  CAN_FRAME power_frame;
+CAN_message_t get_power_frame() {
+  CAN_message_t power_frame;
 
   power_frame.id = POWER_FRAME_ID;
   power_frame.length = 8;
@@ -65,7 +65,7 @@ CAN_FRAME get_power_frame() {
 
 // fetches pedal data and sends a drive message over the CAN0 port on the due
 void send_drive_message(carState &car) {
-  CAN_FRAME frame = get_drive_frame(car);
+  CAN_message_t frame = get_drive_frame(car);
   if (!car.has_fault()) {
     Can0.sendFrame(frame);
   }
@@ -73,6 +73,6 @@ void send_drive_message(carState &car) {
 
 // sends a power message over the CAN0 port on the due
 void send_power_message() {
-  CAN_FRAME frame = get_power_frame();
+  CAN_message_t frame = get_power_frame();
   Can0.sendFrame(frame);
 }

@@ -121,13 +121,13 @@ void carState::readButtons() {
     this->braking = false;
   }
 
-  if ((now - last_update) > 100) {
-    LightsPacket packet =
-        LightsPacket(this->buttons.headlights, this->buttons.right_blinker && flasher_state,
-                     this->buttons.left_blinker && flasher_state, this->braking, this->reversed);
-    packet.send_bytes();
-    last_update = now;
-  }
+  // if ((now - last_update) > 100) {
+  //   LightsPacket packet =
+  //       LightsPacket(this->buttons.headlights, this->buttons.right_blinker && flasher_state,
+  //                    this->buttons.left_blinker && flasher_state, this->braking, this->reversed);
+  //   packet.send_bytes();
+  //   last_update = now;
+  // }
 
   // TODO: horn
 
